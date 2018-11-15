@@ -30,6 +30,9 @@ class ViewController: UIViewController {
             self.logoImage.alpha = 1
             for label in self.labels {
                 label.transform = .identity
+                label.layer.backgroundColor = UIColor.clear.cgColor
+                label.textColor = UIColor.black
+                
                 
             }
             self.shouldScramble = true
@@ -48,7 +51,7 @@ class ViewController: UIViewController {
         let Ywidth = viewHight - labelHeight
         let xOffset = CGFloat(arc4random_uniform(UInt32(Xwidth)))
         let yOffset = CGFloat(arc4random_uniform(UInt32(Ywidth)))
-        return CGAffineTransform(translationX: xOffset, y: yOffset).rotated(by: (CGFloat(arc4random_uniform(360))))
+        return CGAffineTransform(translationX: xOffset, y: yOffset).rotated(by: (CGFloat(arc4random_uniform(360)/2)))
         
     }
     
