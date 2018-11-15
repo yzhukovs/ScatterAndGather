@@ -45,13 +45,13 @@ class ViewController: UIViewController {
         
         let labelsWidth = label.frame.width
         let labelHeight = label.frame.height
-        let viewWidth = self.view.bounds.width
-        let viewHight = self.view.bounds.width
+        let viewWidth =  view.superview!.bounds.width
+        let viewHeight = view.superview!.bounds.height
         let Xwidth = viewWidth - labelsWidth
-        let Ywidth = viewHight - labelHeight
-        let xOffset = CGFloat(arc4random_uniform(UInt32(Xwidth)))
-        let yOffset = CGFloat(arc4random_uniform(UInt32(Ywidth)))
-        return CGAffineTransform(translationX: xOffset, y: yOffset).rotated(by: (CGFloat(arc4random_uniform(360)/2)))
+        let Ywidth = viewHeight - labelHeight
+        let xOffset = CGFloat(arc4random_uniform(UInt32(Xwidth)/2))
+        let yOffset = CGFloat(arc4random_uniform(UInt32(Ywidth)/2))
+        return CGAffineTransform(translationX: xOffset, y: yOffset).rotated(by: (CGFloat(arc4random_uniform(360)))).scaledBy(x: 1.6, y: 1.6)
         
     }
     
