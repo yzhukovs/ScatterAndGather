@@ -9,19 +9,21 @@
 import UIKit
 
 class ViewController: UIViewController {
-
     
-    var shouldScramble: Bool = false
+    var labels: [UILabel] {
+        return [letter1, letter2, letter3, letter4, letter5, letter6]
+    }
+
+    var shouldScramble: Bool = true
     let colors = [UIColor.red, UIColor.green, UIColor.orange, UIColor.cyan, UIColor.yellow,  UIColor.blue ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-    
-   let labels = [letter1, letter2, letter3, letter4, letter5, letter6]
-      
-    }
+        
 
+    }
+    
     
     private func gathered(){
         UIView.animate(withDuration: 2) {
@@ -30,17 +32,18 @@ class ViewController: UIViewController {
                 label.transform = .identity
                 
             }
+            self.shouldScramble = true
         }
         
         
     }
     
     private func randomMove(label: UILabel) -> CGAffineTransform  {
-            
-         let labelsWidth = label.frame.width
-          let labelHeight = label.frame.height
-            let viewWidth = label.superview!.bounds.width
-            let viewHight = label.superview!.bounds.width
+        
+        let labelsWidth = label.frame.width
+        let labelHeight = label.frame.height
+        let viewWidth = self.view.bounds.width
+        let viewHight = self.view.bounds.width
         let Xwidth = viewWidth - labelsWidth
         let Ywidth = viewHight - labelHeight
         let xOffset = CGFloat(arc4random_uniform(UInt32(Xwidth)))
@@ -49,25 +52,25 @@ class ViewController: UIViewController {
         
     }
     
-
+    
     
     private func scattered(){
         UIView.animate(withDuration: 3.0) {
             self.logoImage.alpha = 0
             for label in self.labels {
-             let index = Int(arc4random_uniform(UInt32(self.colors.count)))
+                let index = Int(arc4random_uniform(UInt32(self.colors.count)))
                 label.textColor = self.colors[index]
                 let background = Int(arc4random_uniform(UInt32(self.colors.count)))
                 label.layer.backgroundColor = self.colors[background].cgColor
-                self.randomMove(label: label)
+                label.transform = self.randomMove(label: label)
             }
-            
+            self.shouldScramble = false
         }
-   
+        
     }
     
     
-
+    
     
     
     
@@ -79,14 +82,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var letter5: UILabel!
     @IBOutlet weak var letter6: UILabel!
     
-
-    var labels:[UILabel] = []
     
-
-
+    
+    
+    
     @IBAction func toggle(_ sender: Any) {
         if shouldScramble == true {
             scattered()
+            
         }else {
             gathered()
             
